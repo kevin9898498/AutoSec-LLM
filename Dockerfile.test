@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+WORKDIR /workspace
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+# Only pytest and the data-model dependency are needed to run benchmark tests.
+RUN pip install --no-cache-dir "pydantic>=2.7" "pytest>=8.0"
+
+COPY app ./app
+COPY tests ./tests
+COPY benchmark ./benchmark
+COPY pytest.ini ./
+
+# The host runner disables networking, sets a read-only filesystem and applies
+# CPU/memory/process limits. Do not use this image to execute arbitrary code
+# outside the benchmark test harness.
+CMD ["pytest", "-q", "tests", "benchmark/tests"]

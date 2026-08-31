@@ -1,0 +1,7 @@
+streamlit>=1.35
+pydantic>=2.7
+plotly>=5.22
+semgrep>=1.80
+bandit[sarif]>=1.7
+openai>=1.30
+pytest>=8.0

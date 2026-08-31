@@ -1,0 +1,15 @@
+rules:
+  - id: python-sqli-fstring
+    languages: [python]
+    severity: ERROR
+    message: SQL built with an f-string can cause SQL injection; use query parameters.
+    metadata:
+      cwe: CWE-89
+    pattern: $DB.execute(f"...{$X}...")
+  - id: python-subprocess-shell-true
+    languages: [python]
+    severity: ERROR
+    message: shell=True can cause command injection; pass a list of arguments instead.
+    metadata:
+      cwe: CWE-78
+    pattern: subprocess.$FUNC(..., shell=True, ...)
